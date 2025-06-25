@@ -11,41 +11,34 @@
 */
 
 function bubbleSort(nums) {
-  let swapped = false;
 
+  let swapped = false; // keeps track of whether we made any swaps in a pass
+
+  // Keep looping as long as we're still making swaps
   do {
-    swapped = false;
+    swapped = false // at the start of each pass, assume no swaps will happen
 
+    // If you go all the way to nums.length, nums[i + 1] goes out of bounds (undefined).
     for(let i=0; i < nums.length - 1; i++) {
+      // compare neighbors
       if(nums[i] > nums[i + 1]) {
-        const temp = nums[i]
-        nums[i] = nums[i + 1]
-        nums[i + 1] = temp;
-        swapped = true
+        const temp = nums[i]; // save the left number
+        nums[i] = nums[i + 1]; // move smaller number to the left
+        nums[i + 1] = temp; // move bigger to the right
+        
+        // Set swapped to true if a swap happens, so outer loop (while) knows to go again
+        swapped = true;
       }
     }
-  } while(swapped);
-
+  } while(swapped) // Keep looping until no swaps are made in a full pass
+    
   return nums;
-
-
-  
-  // for(let i=0; i < nums.length; i++) {
-  //   for(let j=i+1; j < nums.length; j++) {
-  //     if(nums[i] > nums[j]) {
-  //       const temp = nums[i]
-  //       nums[i] = nums[j]
-  //       nums[j] = temp
-  //     }
-  //   }
-  // }
-  // return nums;
 }
 
 
 // unit tests
 // do not modify the below code
-test.only("bubble sort", function () {
+test("bubble sort", function () {
   const nums = [10, 5, 3, 8, 2, 6, 4, 7, 9, 1];
   const sortedNums = bubbleSort(nums);
   expect(sortedNums).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
